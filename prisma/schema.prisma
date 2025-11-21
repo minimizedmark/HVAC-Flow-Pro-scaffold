@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  name            String?
+  createdAt       DateTime @default(now())
+  foundingMember  FoundingMember?
+  // basic fields for scheduling/tech
+  phone           String?
+  role            String   @default("customer")
+}
+
+model FoundingMember {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  slotNumber        Int      @unique
+  email             String
+  stripeCustomerId  String?
+  priceLockedCents  Int
+  badgeTitle        String
+  createdAt         DateTime @default(now())
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Job {
+  id             String   @id @default(cuid())
+  customerName   String
+  address        String
+  city           String?
+  state          String?
+  zip            String?
+  description    String
+  status         String   @default("open")
+  partsNeeded    String[]
+  quoteCents     Int?
+  scheduledAt    DateTime?
+  createdAt      DateTime @default(now())
+}
+
+model Tech {
+  id           String @id @default(cuid())
+  name         String
+  email        String @unique
+  phone        String?
+  timezone     String?
+  capacityPerWeek Int @default(30)
+  createdAt    DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  payload   Json?
+  createdAt DateTime @default(now())
+}
