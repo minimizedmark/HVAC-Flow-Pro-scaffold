@@ -42,3 +42,15 @@ export default function Home() {
     </main>
   );
 }
+import FoundingCounter from "@/components/FoundingCounter";
+
+export default function HomePage() {
+  return (
+    <div className="min-h-screen bg-gray-900 text-white">
+      <div className="container mx-auto px-4 py-20">
+        <FoundingCounter />
+        {/* Your normal 3-tier pricing table goes below */}
+      </div>
+    </div>
+  );
+}
