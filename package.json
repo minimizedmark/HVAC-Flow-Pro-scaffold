@@ -29,8 +29,7 @@
     "typescript": "5.3.3",
     "openai": "4.8.0",
     "resend": "0.3.0",
-    "@uploadthing/react": "7.7.4",
-    "@uploadthing/server": "7.7.4"
+  
   },
   "devDependencies": {
     "@types/node": "20.3.1",
